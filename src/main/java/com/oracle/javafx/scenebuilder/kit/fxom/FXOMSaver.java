@@ -107,10 +107,6 @@ class FXOMSaver {
             imports.add(dc.getName());
         });
 
-        // adds java.lang package to imports;
-        // is it needed?
-        imports.add("java.lang.*");
-
         // Creates a List of glue instruction for each class that was declared.
         List<GlueInstruction> importsList = new ArrayList<>();
         imports.forEach(className -> {
