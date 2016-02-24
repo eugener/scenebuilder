@@ -1,0 +1,61 @@
+import org.apache.tools.ant.filters.EscapeUnicode
+
+apply plugin: 'java'
+apply plugin: 'application'
+
+def tryGetProperty = {String name, String defaultValue ->
+    if (!project.hasProperty(name)) {
+        return defaultValue
+    }
+
+    return project.property(name)?.toString()
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile 'junit:junit:4.12'
+    testCompile 'org.assertj:assertj-core:3.2.0'
+}
+
+group = 'com.gluonhq.scenebuilder'
+version = tryGetProperty('VERSION', '8.1.2-SNAPSHOT')
+mainClassName = 'com.oracle.javafx.scenebuilder.app.SceneBuilderApp'
+ext.buildDateFormat = version.endsWith('-SNAPSHOT') ? 'yyyy-MM-dd HH:mm:ss' : 'yyyy-MM-dd'
+
+clean {
+    delete "dist"
+}
+
+processResources {
+    def buildDate = new Date().format(buildDateFormat)
+    from ('src/main/resources') {
+        include '**/*.properties'
+        expand([
+            version: version,
+            javaVersion: System.getProperty('java.runtime.version') + ', ' + System.getProperty('java.vendor'),
+            buildDate: buildDate,
+            mainClassName: mainClassName
+        ])
+        filter(EscapeUnicode)
+    }
+    into buildDir
+}
+
+jar {
+    baseName = 'scenebuilder'
+    manifest {
+        attributes 'Main-Class': mainClassName
+    }
+}
+
+task kitJar(type: Jar, dependsOn: classes, description: 'Creates a jar for the SceneBuilder kit.') {
+    baseName = 'scenebuilder-kit'
+    from (sourceSets.main.output) {
+        include "com/oracle/javafx/scenebuilder/kit/**/*"
+    }
+}
+
+apply from: 'maven-publish.gradle'
