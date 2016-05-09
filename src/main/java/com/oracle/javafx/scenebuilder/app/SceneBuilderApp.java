@@ -432,7 +432,8 @@ public class SceneBuilderApp extends Application implements AppPlatform.AppNotif
         }
 
         EditorController.updateNextInitialDirectory(fileObjs.get(0));
-        performOpenFiles(fileObjs, null);
+        // Fix for #45
+        Platform.runLater(() -> performOpenFiles(fileObjs, null));
     }
 
     @Override
