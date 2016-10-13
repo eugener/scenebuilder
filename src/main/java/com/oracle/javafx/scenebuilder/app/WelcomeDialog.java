@@ -50,6 +50,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
+import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 
@@ -130,8 +131,8 @@ public class WelcomeDialog extends Dialog {
             }
 
             String recentItem = recentItems.get(row);
-            String[] recentItemPath = recentItem.split("\\\\");
-            String recentItemTitle = recentItemPath[recentItemPath.length - 1].split("\\.")[0];
+            File recentItemFile = new File(recentItems.get(row));
+            String recentItemTitle = recentItemFile.getName();
             Hyperlink titleLabel = new Hyperlink(recentItemTitle);
             recentItemsOptions.getChildren().add(titleLabel);
 

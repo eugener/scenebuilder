@@ -356,8 +356,7 @@ public class SceneBuilderApp extends Application implements AppPlatform.AppNotif
      * Application
      */
     @Override
-    public void start(Stage stage) throws Exception {
-
+    public void start(Stage stage) throws Exception {  
         launchLatch.countDown();
         setApplicationUncaughtExceptionHandler();
 
@@ -425,10 +424,11 @@ public class SceneBuilderApp extends Application implements AppPlatform.AppNotif
             Deprecation.setDefaultSystemMenuBar(MenuBarController.getSystemMenuBarController().getMenuBar());
         }
 
-        WelcomeDialog welcomeDialog = new WelcomeDialog();
-        SBSettings.setWindowIcon((Stage)welcomeDialog.getDialogPane().getScene().getWindow());
-
-        welcomeDialog.showAndWait();
+        if (files.isEmpty()) {
+            // We're starting SB directly (fresh start) so not opening any file
+            WelcomeDialog welcomeDialog = new WelcomeDialog();
+            welcomeDialog.showAndWait();
+        }
     }
 
 
@@ -519,9 +519,7 @@ public class SceneBuilderApp extends Application implements AppPlatform.AppNotif
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter(I18N.getString("file.filter.label.fxml"),
                 "*.fxml")); //NOI18N
         fileChooser.setInitialDirectory(EditorController.getNextInitialDirectory());
-        Stage stage = new Stage();
-        SBSettings.setWindowIcon(stage);
-        final List<File> fxmlFiles = fileChooser.showOpenMultipleDialog(getDocumentWindowControllers().get(0).getStage());
+        final List<File> fxmlFiles = fileChooser.showOpenMultipleDialog(null);
         if (fxmlFiles != null) {
             assert fxmlFiles.isEmpty() == false;
             EditorController.updateNextInitialDirectory(fxmlFiles.get(0));
