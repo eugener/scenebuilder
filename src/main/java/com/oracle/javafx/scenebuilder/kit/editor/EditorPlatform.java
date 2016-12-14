@@ -65,7 +65,17 @@ public class EditorPlatform {
      * True if current platform is running Windows.
      */
     public static final boolean IS_WINDOWS = osName.contains("windows"); //NOI18N
-    
+
+    /**
+     * Charm Glisten version
+     */
+    public static final String GLUON_CHARM_GLISTEN_VERSION = "4.2.0";
+
+    /**
+     * Gluon Glisten package
+     */
+    public static final String GLUON_PACKAGE = "com.gluonhq.charm.glisten";
+
     /**
      * This URL is where you go when the user takes Scene Builder Help action (shortcut F1)
      */
@@ -75,7 +85,11 @@ public class EditorPlatform {
      * Javadoc home (for Inspector and CSS Analyzer properties)
      */
     public final static String JAVADOC_HOME = "https://docs.oracle.com/javase/8/javafx/api/"; //NOI18N
-    
+
+    /**
+     * Gluon javadoc home (for Inspector and CSS Analyzer properties)
+     */
+    public final static String GLUON_JAVADOC_HOME = "http://docs.gluonhq.com/charm/javadoc/" + GLUON_CHARM_GLISTEN_VERSION +"/"; //NOI18N
 
     /**
      * Themes supported by Scene Builder Kit.
@@ -96,6 +110,39 @@ public class EditorPlatform {
         CASPIAN_EMBEDDED_HIGH_CONTRAST,
         CASPIAN_EMBEDDED_QVGA,
         CASPIAN_EMBEDDED_QVGA_HIGH_CONTRAST
+    }
+
+    /**
+     * Gluon Swatch
+     */
+    public enum GluonSwatch {
+        BLUE,
+        CYAN,
+        DEEP_ORANGE,
+        DEEP_PURPLE,
+        GREEN,
+        INDIGO,
+        LIGHT_BLUE,
+        PINK,
+        PURPLE,
+        RED,
+        TEAL,
+        LIGHT_GREEN,
+        LIME,
+        YELLOW,
+        AMBER,
+        ORANGE,
+        BROWN,
+        GREY,
+        BLUE_GREY;
+    }
+
+    /**
+     * Gluon Theme
+     */
+    public enum GluonTheme {
+        LIGHT,
+        DARK;
     }
 
     /**
@@ -166,11 +213,81 @@ public class EditorPlatform {
         return result;
     }
 
-    public static List<String> getAdditionalStylesheetsURL(Theme theme) {
-        List<String> result;
-        switch(theme) {
-            case GLUON_MOBILE:
-                result = Arrays.asList(GlistenStyleClasses.impl_loadResource(Deprecation.GLUON_BLUE_SWATCH), GlistenStyleClasses.impl_loadResource(Deprecation.GLUON_LIGHT_THEME));
+    public static String getGluonThemeStylesheetURL(GluonTheme theme) {
+        String result;
+        switch (theme) {
+            case DARK:
+                result = GlistenStyleClasses.impl_loadResource(Deprecation.GLUON_DARK_THEME);
+                break;
+            case LIGHT:
+                result = GlistenStyleClasses.impl_loadResource(Deprecation.GLUON_LIGHT_THEME);
+                break;
+            default:
+                result = null;
+                break;
+        }
+        return result;
+    }
+
+    public static String getGluonSwatchStylesheetURL(GluonSwatch swatch) {
+        String result;
+        switch(swatch) {
+            case BLUE:
+                result = GlistenStyleClasses.impl_loadResource(Deprecation.GLUON_BLUE_SWATCH);
+                break;
+            case CYAN:
+                result = GlistenStyleClasses.impl_loadResource(Deprecation.GLUON_CYAN_SWATCH);
+                break;
+            case DEEP_ORANGE:
+                result = GlistenStyleClasses.impl_loadResource(Deprecation.GLUON_DEEP_ORANGE_SWATCH);
+                break;
+            case DEEP_PURPLE:
+                result = GlistenStyleClasses.impl_loadResource(Deprecation.GLUON_DEEP_PURPLE_SWATCH);
+                break;
+            case GREEN:
+                result = GlistenStyleClasses.impl_loadResource(Deprecation.GLUON_GREEN_SWATCH);
+                break;
+            case INDIGO:
+                result = GlistenStyleClasses.impl_loadResource(Deprecation.GLUON_INDIGO_SWATCH);
+                break;
+            case LIGHT_BLUE:
+                result = GlistenStyleClasses.impl_loadResource(Deprecation.GLUON_LIGHT_BLUE_SWATCH);
+                break;
+            case PINK:
+                result = GlistenStyleClasses.impl_loadResource(Deprecation.GLUON_PINK_SWATCH);
+                break;
+            case PURPLE:
+                result = GlistenStyleClasses.impl_loadResource(Deprecation.GLUON_PURPLE_SWATCH);
+                break;
+            case RED:
+                result = GlistenStyleClasses.impl_loadResource(Deprecation.GLUON_RED_SWATCH);
+                break;
+            case TEAL:
+                result = GlistenStyleClasses.impl_loadResource(Deprecation.GLUON_TEAL_SWATCH);
+                break;
+            case LIGHT_GREEN:
+                result = GlistenStyleClasses.impl_loadResource(Deprecation.GLUON_LIGHT_GREEN_SWATCH);
+                break;
+            case LIME:
+                result = GlistenStyleClasses.impl_loadResource(Deprecation.GLUON_LIME_SWATCH);
+                break;
+            case YELLOW:
+                result = GlistenStyleClasses.impl_loadResource(Deprecation.GLUON_YELLOW_SWATCH);
+                break;
+            case AMBER:
+                result = GlistenStyleClasses.impl_loadResource(Deprecation.GLUON_AMBER_SWATCH);
+                break;
+            case ORANGE:
+                result = GlistenStyleClasses.impl_loadResource(Deprecation.GLUON_ORANGE_SWATCH);
+                break;
+            case BROWN:
+                result = GlistenStyleClasses.impl_loadResource(Deprecation.GLUON_BROWN_SWATCH);
+                break;
+            case GREY:
+                result = GlistenStyleClasses.impl_loadResource(Deprecation.GLUON_GREY_SWATCH);
+                break;
+            case BLUE_GREY:
+                result = GlistenStyleClasses.impl_loadResource(Deprecation.GLUON_BLUE_GREY_SWATCH);
                 break;
             default:
                 result = null;
@@ -183,7 +300,11 @@ public class EditorPlatform {
         // Return USER_AGENT css, which is Modena for fx 8.0
         return Deprecation.MODENA_STYLESHEET;
     }
-    
+
+    public static String getGluonDocumentStylesheetURL() {
+        return Deprecation.GLUON_DOCUMENT_STYLESHEET;
+    }
+
     public static boolean isModena(Theme theme) {
         return theme.toString().startsWith("MODENA");
     }
