@@ -47,11 +47,11 @@ import javafx.scene.layout.Region;
 public class BuiltinLibrary extends Library {
 
     public static final String GLUON_PACKAGE      = "com.gluonhq.charm.glisten";
-    public static final String GLUON_FILE_PREFIX = "Gluon_";
+    public static final String GLUON_FILE_PREFIX  = "Gluon_";
     // In SB 1.1 the section names of the Library have been localized. We assume
     // for now we stick to this approach, but fact is the support of custom
     // sections could change the rules of the game.
-    public static final String TAG_GLUON          = "Gluon";
+    public static final String TAG_GLUON          = "Gluon Mobile";
     public static final String TAG_CONTAINERS     = "Containers"; //NOI18N
     public static final String TAG_CONTROLS       = "Controls"; //NOI18N
     public static final String TAG_MENU           = "Menu"; //NOI18N
@@ -97,7 +97,6 @@ public class BuiltinLibrary extends Library {
     public static String getEmptyQualifier() {
         return EMPTY_QUALIFIER;
     }
-    
     
     /*
      * Library
