@@ -471,6 +471,8 @@ public class Metadata {
             new ComponentClassMetadata(javafx.scene.shape.Cylinder.class, Shape3DMetadata);
     private final ComponentClassMetadata EllipseMetadata = 
             new ComponentClassMetadata(javafx.scene.shape.Ellipse.class, ShapeMetadata);
+    private final ComponentClassMetadata ExpandedPanelMetadata =
+            new ComponentClassMetadata( com.gluonhq.charm.glisten.control.ExpansionPanel.ExpandedPanel.class, RegionMetadata);
     private final ComponentClassMetadata ExpansionPanelMetadata =
             new ComponentClassMetadata( com.gluonhq.charm.glisten.control.ExpansionPanel.class, ControlMetadata);
     private final ComponentClassMetadata ExpansionPanelContainerMetadata =
@@ -595,8 +597,6 @@ public class Metadata {
             new PropertyName("cacheShape");
     private final PropertyName cancelButtonName = 
             new PropertyName("cancelButton");
-    private final PropertyName cardsName =
-            new PropertyName("cards");
     private final PropertyName categoriesName = 
             new PropertyName("categories");
     private final PropertyName categoryGapName = 
@@ -929,6 +929,8 @@ public class Metadata {
             new PropertyName("onMousePressed");
     private final PropertyName onMouseReleasedName = 
             new PropertyName("onMouseReleased");
+    private final PropertyName onPullToRefreshName =
+            new PropertyName("onPullToRefresh");
     private final PropertyName onRotateName = 
             new PropertyName("onRotate");
     private final PropertyName onRotationFinishedName = 
@@ -1763,6 +1765,11 @@ public class Metadata {
                 true, /* readWrite */
                 "L_HE+U+FBIX_NCYOA_R", /* defaultValue */
                 new InspectorPath("Properties", "Specific", 5));
+    private final ComponentPropertyMetadata buttons_EXPANDEDPANEL_PropertyMetadata =
+            new ComponentPropertyMetadata(
+                buttonsName,
+                ButtonBaseMetadata,
+                true); /* collection */
     private final ComponentPropertyMetadata buttonsPropertyMetadata =
             new ComponentPropertyMetadata(
                 buttonsName,
@@ -1799,11 +1806,6 @@ public class Metadata {
                 true, /* readWrite */
                 false, /* defaultValue */
                 new InspectorPath("Properties", "Specific", 46));
-    private final ComponentPropertyMetadata cards_Node_PropertyMetadata =
-            new ComponentPropertyMetadata(
-                cardsName,
-                NodeMetadata,
-                true); /* collection */
     private final ValuePropertyMetadata categoriesPropertyMetadata =
             new StringListPropertyMetadata(
                 categoriesName,
@@ -1934,6 +1936,11 @@ public class Metadata {
                 true, /* readWrite */
                 true, /* defaultValue */
                 new InspectorPath("Properties", "Specific", 64));
+    private final ComponentPropertyMetadata content_EXPANDEDPANEL_PropertyMetadata =
+            new ComponentPropertyMetadata(
+                contentName,
+                NodeMetadata,
+                false); /* collection */
     private final ComponentPropertyMetadata content_Node_NULL_PropertyMetadata =
             new ComponentPropertyMetadata(
                 contentName,
@@ -3017,6 +3024,13 @@ public class Metadata {
                 true, /* readWrite */
                 null, /* defaultValue */
                 new InspectorPath("Code", "Mouse", 7));
+    private final ValuePropertyMetadata onPullToRefreshPropertyMetadata =
+            new EventHandlerPropertyMetadata(
+                    onPullToRefreshName,
+                    true, /* readWrite */
+                    null, /* defaultValue */
+                    new InspectorPath("Code", "Specific", 0)
+            );
     private final ValuePropertyMetadata onRotatePropertyMetadata =
             new EventHandlerPropertyMetadata(
                 onRotateName,
@@ -4756,6 +4770,7 @@ public class Metadata {
         componentClassMap.put(DialogPaneMetadata.getKlass(), DialogPaneMetadata);
         componentClassMap.put(DropdownButtonMetadata.getKlass(), DropdownButtonMetadata);
         componentClassMap.put(EllipseMetadata.getKlass(), EllipseMetadata);
+        componentClassMap.put(ExpandedPanelMetadata.getKlass(), ExpandedPanelMetadata);
         componentClassMap.put(ExpansionPanelMetadata.getKlass(), ExpansionPanelMetadata);
         componentClassMap.put(ExpansionPanelContainerMetadata.getKlass(), ExpansionPanelContainerMetadata);
         componentClassMap.put(FlowPaneMetadata.getKlass(), FlowPaneMetadata);
@@ -4942,7 +4957,8 @@ public class Metadata {
         CanvasMetadata.getProperties().add(pickOnBounds_false_PropertyMetadata);
         CanvasMetadata.getProperties().add(width_Double_0_PropertyMetadata);
 
-        CardPaneMetadata.getProperties().add(cards_Node_PropertyMetadata);
+        CardPaneMetadata.getProperties().add(items_Node_PropertyMetadata);
+        CardPaneMetadata.getProperties().add(onPullToRefreshPropertyMetadata);
 
         CategoryAxisMetadata.getProperties().add(categoriesPropertyMetadata);
         CategoryAxisMetadata.getProperties().add(categorySpacingPropertyMetadata);
@@ -5088,6 +5104,9 @@ public class Metadata {
         EllipseMetadata.getProperties().add(pickOnBounds_false_PropertyMetadata);
         EllipseMetadata.getProperties().add(radiusXPropertyMetadata);
         EllipseMetadata.getProperties().add(radiusYPropertyMetadata);
+
+        ExpandedPanelMetadata.getProperties().add(content_EXPANDEDPANEL_PropertyMetadata);
+        ExpandedPanelMetadata.getProperties().add(buttons_EXPANDEDPANEL_PropertyMetadata);
 
         ExpansionPanelMetadata.getProperties().add(expandedContentPropertyMetadata);
         ExpansionPanelMetadata.getProperties().add(collapsedContentPropertyMetadata);
