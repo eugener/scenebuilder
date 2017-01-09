@@ -32,6 +32,7 @@
  */
 package com.oracle.javafx.scenebuilder.kit.library;
 
+import com.oracle.javafx.scenebuilder.kit.editor.EditorPlatform;
 import com.oracle.javafx.scenebuilder.kit.editor.i18n.I18N;
 import com.oracle.javafx.scenebuilder.kit.editor.images.ImageUtils;
 import com.oracle.javafx.scenebuilder.kit.fxom.FXOMDocument;
@@ -46,7 +47,6 @@ import javafx.scene.layout.Region;
  */
 public class BuiltinLibrary extends Library {
 
-    public static final String GLUON_PACKAGE      = "com.gluonhq.charm.glisten";
     public static final String GLUON_FILE_PREFIX  = "Gluon_";
     // In SB 1.1 the section names of the Library have been localized. We assume
     // for now we stick to this approach, but fact is the support of custom
@@ -125,14 +125,14 @@ public class BuiltinLibrary extends Library {
         addCustomizedItem(com.gluonhq.charm.glisten.control.AutoCompleteTextField.class, TAG_GLUON);
         addCustomizedItem(com.gluonhq.charm.glisten.control.Avatar.class, TAG_GLUON);
         addCustomizedItem(com.gluonhq.charm.glisten.control.BottomNavigation.class, TAG_GLUON);
-//        addCustomizedItem(com.gluonhq.charm.glisten.control.CardPane.class, TAG_GLUON);
+        addCustomizedItem(com.gluonhq.charm.glisten.control.CardPane.class, TAG_GLUON);
         addCustomizedItem(com.gluonhq.charm.glisten.control.CharmListView.class, TAG_GLUON);
         addCustomizedItem(com.gluonhq.charm.glisten.control.Chip.class, TAG_GLUON);
-//        addCustomizedItem(com.gluonhq.charm.glisten.control.ExpansionPanel.CollapsedPanel.class, TAG_GLUON);
+        addCustomizedItem(com.gluonhq.charm.glisten.control.ExpansionPanel.CollapsedPanel.class, TAG_GLUON);
 //        addCustomizedItem(com.gluonhq.charm.glisten.control.Dialog.class, TAG_GLUON);
         addCustomizedItem(com.gluonhq.charm.glisten.control.DropdownButton.class, TAG_GLUON);
         addCustomizedItem(com.gluonhq.charm.glisten.control.ExpansionPanel.class, TAG_GLUON);
-//        addCustomizedItem(com.gluonhq.charm.glisten.control.ExpansionPanel.ExpandedPanel.class, TAG_GLUON);
+        addCustomizedItem(com.gluonhq.charm.glisten.control.ExpansionPanel.ExpandedPanel.class, TAG_GLUON);
         addCustomizedItem(com.gluonhq.charm.glisten.control.ExpansionPanelContainer.class, TAG_GLUON);
 //        addCustomizedItem(com.gluonhq.charm.glisten.layout.layer.FloatingActionButton.class, TAG_GLUON);
 //        addCustomizedItem(com.gluonhq.charm.glisten.layout.responsive.grid.GridLayout.class, TAG_GLUON);
@@ -150,7 +150,7 @@ public class BuiltinLibrary extends Library {
         addCustomizedItem(com.gluonhq.charm.glisten.control.ProgressIndicator.class, TAG_GLUON);
         addCustomizedItem(com.gluonhq.charm.glisten.control.SettingsPane.class, TAG_GLUON);
 //        addCustomizedItem(com.gluonhq.charm.glisten.layout.layer.SidePopupView.class, TAG_GLUON);
-//        addCustomizedItem(com.gluonhq.charm.glisten.mvc.SplashView.class, TAG_GLUON);
+        addCustomizedItem(com.gluonhq.charm.glisten.mvc.SplashView.class, TAG_GLUON);
         addCustomizedItem(com.gluonhq.charm.glisten.control.TextField.class, TAG_GLUON);
         addCustomizedItem(com.gluonhq.charm.glisten.control.ToggleButtonGroup.class, TAG_GLUON);
         addCustomizedItem(com.gluonhq.charm.glisten.mvc.View.class, TAG_GLUON);
@@ -363,7 +363,7 @@ public class BuiltinLibrary extends Library {
         if (qualifier != null) {
             nameWithQualifier += qualifier;
         }
-        if (componentClass.getName().startsWith(GLUON_PACKAGE)) {
+        if (componentClass.getName().startsWith(EditorPlatform.GLUON_PACKAGE)) {
             fxmlBaseName = GLUON_FILE_PREFIX + fxmlBaseName;
             iconName = GLUON_FILE_PREFIX + iconName;
         }
