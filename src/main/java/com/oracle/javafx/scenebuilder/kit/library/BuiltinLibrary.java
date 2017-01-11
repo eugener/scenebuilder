@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016, Gluon and/or its affiliates.
+ * Copyright (c) 2016, 2017, Gluon and/or its affiliates.
  * Copyright (c) 2012, 2014, Oracle and/or its affiliates.
  * All rights reserved. Use is subject to license terms.
  *
@@ -51,7 +51,7 @@ public class BuiltinLibrary extends Library {
     // In SB 1.1 the section names of the Library have been localized. We assume
     // for now we stick to this approach, but fact is the support of custom
     // sections could change the rules of the game.
-    public static final String TAG_GLUON          = "Gluon Mobile";
+    public static final String TAG_GLUON          = "Gluon";
     public static final String TAG_CONTAINERS     = "Containers"; //NOI18N
     public static final String TAG_CONTROLS       = "Controls"; //NOI18N
     public static final String TAG_MENU           = "Menu"; //NOI18N
@@ -125,7 +125,7 @@ public class BuiltinLibrary extends Library {
         addCustomizedItem(com.gluonhq.charm.glisten.control.AutoCompleteTextField.class, TAG_GLUON);
         addCustomizedItem(com.gluonhq.charm.glisten.control.Avatar.class, TAG_GLUON);
         addCustomizedItem(com.gluonhq.charm.glisten.control.BottomNavigation.class, TAG_GLUON);
-//        addCustomizedItem(com.gluonhq.charm.glisten.control.CardPane.class, TAG_GLUON);
+        addCustomizedItem(com.gluonhq.charm.glisten.control.CardPane.class, TAG_GLUON);
         addCustomizedItem(com.gluonhq.charm.glisten.control.CharmListView.class, TAG_GLUON);
         addCustomizedItem(com.gluonhq.charm.glisten.control.Chip.class, TAG_GLUON);
         addCustomizedItem(com.gluonhq.charm.glisten.control.ExpansionPanel.CollapsedPanel.class, TAG_GLUON);
@@ -150,7 +150,7 @@ public class BuiltinLibrary extends Library {
         addCustomizedItem(com.gluonhq.charm.glisten.control.ProgressIndicator.class, TAG_GLUON);
         addCustomizedItem(com.gluonhq.charm.glisten.control.SettingsPane.class, TAG_GLUON);
 //        addCustomizedItem(com.gluonhq.charm.glisten.layout.layer.SidePopupView.class, TAG_GLUON);
-//        addCustomizedItem(com.gluonhq.charm.glisten.mvc.SplashView.class, TAG_GLUON);
+        addCustomizedItem(com.gluonhq.charm.glisten.mvc.SplashView.class, TAG_GLUON);
         addCustomizedItem(com.gluonhq.charm.glisten.control.TextField.class, TAG_GLUON);
         addCustomizedItem(com.gluonhq.charm.glisten.control.ToggleButtonGroup.class, TAG_GLUON);
         addCustomizedItem(com.gluonhq.charm.glisten.mvc.View.class, TAG_GLUON);

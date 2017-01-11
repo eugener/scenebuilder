@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016, Gluon and/or its affiliates.
+ * Copyright (c) 2017, Gluon and/or its affiliates.
  * All rights reserved. Use is subject to license terms.
  *
  * This file is available and licensed under the following license:
@@ -30,55 +30,13 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-.welcome-dialog {
-    -fx-min-height: 300px;
-    -fx-background-color: white;
+.SB-alert.alert .header-panel {
+    -fx-background-color: #e2e2e2;
+    -fx-border-color: #b4b4b4;
+    -fx-border-width: 1 0 1 0;
 }
 
-.welcome-dialog .header {
-    -fx-font-weight: bold;
-    -fx-font-size: 1.25em;
+.SB-alert.alert .label.content {
+    -fx-background-color: #f6f6f7;
+    -fx-padding: 16 10 3em 10;
 }
-.welcome-dialog .actions-options {
-    -fx-padding: 5 0 0 0;
-}
-.welcome-dialog .actions-options .hyperlink, .welcome-dialog .recent-items-options .hyperlink {
-    -fx-padding: 0 0 0 0;
-}
-
-.welcome-dialog .actions-options > .action-option-container {
-    -fx-spacing: 3;
-}
-
-.welcome-dialog .recent-items-options, .welcome-dialog .scroll-pane-container {
-    -fx-padding: 5 0 0 0;
-}
-
-.welcome-dialog .scroll-pane .recent-items-options {
-    -fx-padding: 0 0 0 0;
-}
-
-.welcome-dialog .scroll-pane {
-    -fx-max-height: 150px;
-    -fx-min-width: 250px;
-    -fx-pref-width: 250px;
-    -fx-max-width: 250px;
-}
-
-.welcome-dialog .scroll-pane > .viewport {
-    -fx-background-color: white;
-}
-
-.welcome-dialog .recent-items-container{
-    -fx-pref-width: 350px;
-}
-
-.welcome-dialog .actions-container{
-    -fx-pref-width: 350px;
-}
-
-.welcome-dialog .separator {
-    -fx-padding: 0 5 0 0;
-}
-
-
