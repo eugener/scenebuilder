@@ -30,11 +30,10 @@
   (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
-<?import com.gluonhq.charm.glisten.control.ExpansionPanel.CollapsedPanel?>
+<?import com.gluonhq.charm.glisten.control.CardPane?>
 <?import javafx.scene.control.Label?>
-<ExpansionPanel.CollapsedPanel prefWidth="252">
-    <titleNodes>
-        <Label text="TripName" />
-        <Label text="Caribbean cruise" />
-    </titleNodes>
-</ExpansionPanel.CollapsedPanel>
+<CardPane>
+    <Label text="label1" style="-fx-padding:10;" />
+    <Label text="label2" style="-fx-padding:10;" />
+    <Label text="label3" style="-fx-padding:10;" />
+</CardPane>
