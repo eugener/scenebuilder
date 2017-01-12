@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016, Gluon and/or its affiliates.
+ * Copyright (c) 2016, 2017, Gluon and/or its affiliates.
  * Copyright (c) 2012, 2014, Oracle and/or its affiliates.
  * All rights reserved. Use is subject to license terms.
  *
@@ -33,6 +33,7 @@
 package com.oracle.javafx.scenebuilder.kit.metadata.util;
 
 import com.gluonhq.charm.glisten.control.BottomNavigation;
+import com.oracle.javafx.scenebuilder.kit.editor.EditorPlatform;
 import com.gluonhq.charm.glisten.control.DropdownButton;
 import com.gluonhq.charm.glisten.control.ExpansionPanel;
 import com.gluonhq.charm.glisten.control.ToggleButtonGroup;

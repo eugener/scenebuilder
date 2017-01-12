@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016, Gluon and/or its affiliates.
+ * Copyright (c) 2017, Gluon and/or its affiliates.
  * Copyright (c) 2012, 2014, Oracle and/or its affiliates.
  * All rights reserved. Use is subject to license terms.
  *
@@ -33,6 +33,7 @@
 package com.oracle.javafx.scenebuilder.kit.editor;
 
 import com.oracle.javafx.scenebuilder.app.preferences.PreferencesRecordGlobal;
+import com.oracle.javafx.scenebuilder.app.alert.WarnThemeAlert;
 import com.oracle.javafx.scenebuilder.kit.editor.EditorPlatform.Theme;
 import com.oracle.javafx.scenebuilder.kit.editor.drag.DragController;
 import com.oracle.javafx.scenebuilder.kit.editor.i18n.I18N;
@@ -264,8 +265,6 @@ public class EditorController {
             = new SimpleObjectProperty<>(new BuiltinGlossary());
     private final ObjectProperty<ResourceBundle> resourcesProperty
             = new SimpleObjectProperty<>(null);
-    private final ObjectProperty<Theme> themeProperty
-            = new SimpleObjectProperty<>(PreferencesRecordGlobal.DEFAULT_THEME);
     private final ObjectProperty<EditorPlatform.GluonTheme> gluonThemeProperty
             = new SimpleObjectProperty<>(PreferencesRecordGlobal.DEFAULT_GLUON_THEME);
     private final ObjectProperty<EditorPlatform.GluonSwatch> gluonSwatchProperty
@@ -536,7 +535,19 @@ public class EditorController {
     public ObservableValue<ResourceBundle> resourcesProperty() {
         return resourcesProperty;
     }
-    
+
+    // -- Theme property
+    private final ObjectProperty<Theme> themeProperty
+            = new SimpleObjectProperty<Theme>(PreferencesRecordGlobal.DEFAULT_THEME) {
+        @Override
+        protected void invalidated() {
+            FXOMDocument fxomDocument = getFxomDocument();
+            if (fxomDocument != null) {
+                fxomDocument.refreshSceneGraph();
+            }
+        }
+    };
+
     /**
      * Returns the theme used by this editor.
      * 
@@ -1695,6 +1706,8 @@ public class EditorController {
             job = new InsertAsSubComponentJob(newObject, target, -1, this);
         }
 
+        WarnThemeAlert.showAlertIfRequired(this, newObject);
+
         jobManager.push(job);
     }
 
@@ -2480,6 +2493,8 @@ public class EditorController {
         fxomDocumentProperty.setValue(newFxomDocument);
         
         watchingController.fxomDocumentDidChange();
+
+        WarnThemeAlert.showAlertIfRequired(this, newFxomDocument);
         
     }
     

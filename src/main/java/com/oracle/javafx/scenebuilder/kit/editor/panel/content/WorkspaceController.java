@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016, Gluon and/or its affiliates.
+ * Copyright (c) 2017, Gluon and/or its affiliates.
  * Copyright (c) 2012, 2014, Oracle and/or its affiliates.
  * All rights reserved. Use is subject to license terms.
  *
@@ -44,6 +44,7 @@ import javafx.application.ConditionalFeature;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.geometry.BoundingBox;
 import javafx.geometry.Bounds;
@@ -198,6 +199,12 @@ class WorkspaceController {
             contentGroup.getStylesheets().remove(gluonDocumentStylesheet);
             contentGroup.getStylesheets().remove(previousGluonSwatchStylesheet);
             contentGroup.getStylesheets().remove(previousGluonThemeStylesheet);
+        }
+
+        // Update scenegraph layout, etc
+        FXOMDocument fxomDocument = editorController.getFxomDocument();
+        if (fxomDocument != null) {
+            fxomDocument.refreshSceneGraph();
         }
     }
     
