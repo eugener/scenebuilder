@@ -1,0 +1,79 @@
+import org.apache.tools.ant.filters.EscapeUnicode
+
+apply plugin: 'application'
+apply plugin: 'com.github.johnrengelman.shadow'
+
+buildscript {
+    repositories { jcenter() }
+    dependencies {
+        classpath 'com.github.jengelman.gradle.plugins:shadow:1.2.3'
+    }
+}
+
+
+mainClassName = 'com.oracle.javafx.scenebuilder.app.SceneBuilderApp'
+
+dependencies {
+    compile project(':kit')
+}
+
+shadowJar {
+    baseName = 'scenebuilder'
+    manifest {
+        attributes 'Main-Class': mainClassName
+    }
+}
+
+task run (dependsOn: assemble, overwrite: true) {
+    doLast {
+        String jarPath = relativePath(new File(libsDir, shadowJar.baseName + "-" + version + "-all.jar"))
+        javaexec
+                { main = '-jar'; args jarPath }
+    }
+}
+
+processResources {
+    def buildDate = new Date().format(buildDateFormat)
+    from ('src/main/resources') {
+        include '**/*.properties'
+        expand([
+            version: version,
+            javaVersion: System.getProperty('java.runtime.version') + ', ' + System.getProperty('java.vendor'),
+            buildDate: buildDate
+        ])
+        filter(EscapeUnicode)
+    }
+    into buildDir
+}
+
+artifacts {
+    archives shadowJar
+}
+
+apply plugin: 'maven'
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            def repoUrl = project.getStringProperty('publishRepositoryUrl', 'http://nexus.gluonhq.com/nexus/content/repositories/releases/');
+            def repoUser = project.getStringProperty('publishRepositoryUser', '');
+            def repoPassword = project.getStringProperty('publishRepositoryPassword', '');
+            snapshotRepository(url: 'http://nexus.gluonhq.com/nexus/content/repositories/snapshots/') {
+                authentication userName: repoUser, password: repoPassword
+            }
+            repository(url: repoUrl) {
+                authentication(userName: repoUser, password: repoPassword);
+            }
+//            addFilter('scenebuilder-all') { artifact, file ->
+//                artifact.name == 'scenebuilder-all'
+//            }
+            addFilter('scenebuilder') { artifact, file ->
+                artifact.name == 'scenebuilder'
+            }
+//            pom('scenebuilder-all') {
+//                artifactId = 'scenebuilder-all'
+//            }
+        }
+    }
+}
+
