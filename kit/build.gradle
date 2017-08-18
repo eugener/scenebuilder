@@ -1,0 +1,27 @@
+jar {
+    baseName = 'scenebuilder-kit'
+}
+
+apply plugin: 'maven'
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            def repoUrl = project.getStringProperty('publishRepositoryUrl', 'http://nexus.gluonhq.com/nexus/content/repositories/releases/');
+            def repoUser = project.getStringProperty('publishRepositoryUser', '');
+            def repoPassword = project.getStringProperty('publishRepositoryPassword', '');
+            snapshotRepository(url: 'http://nexus.gluonhq.com/nexus/content/repositories/snapshots/') {
+                authentication userName: repoUser, password: repoPassword
+            }
+            repository(url: repoUrl) {
+                authentication(userName: repoUser, password: repoPassword);
+            }
+            addFilter('scenebuilder-kit') { artifact, file ->
+                artifact.name == 'scenebuilder-kit'
+            }
+            pom('scenebuilder-kit') {
+                artifactId = 'scenebuilder-kit'
+            }
+        }
+    }
+}
