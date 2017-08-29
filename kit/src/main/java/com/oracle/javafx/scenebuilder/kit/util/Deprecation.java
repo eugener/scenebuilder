@@ -134,8 +134,8 @@ public class Deprecation {
     // Deprecated stuff in FXMLLoader
     // RT-21226 : Promote setStaticLoad to public API
     public static void setStaticLoad(FXMLLoader loader, boolean staticLoad) {
-//        loader.impl_setStaticLoad(staticLoad);
-        // System.err.println("Error: impl_setStaticLoad is no longer publicly accessible");
+        // See SB-266 and JDK-8186429
+        ReflectionUtils.setStaticLoad(loader, staticLoad);
     }
 
     // RT-20184 : FX should provide a Parent.pick() routine
@@ -168,16 +168,6 @@ public class Deprecation {
 
         return node;
     }
-
-    // RT-19857 : Keeping menu in the Mac menu bar when there is no more stage
-    public static void setDefaultSystemMenuBar(MenuBar menuBar) {
-        //MenuBarSkin.setDefaultSystemMenuBar(menuBar);
-    }
-
-//    // RT-21475 : Promote FXMLLoader.setLoadListener to public API
-//    public static ParseTraceElement[] getParseTrace(FXMLLoader loader) {
-//        return loader.getParseTrace();
-//    }
 
     public static int getGridPaneColumnCount(GridPane gridPane) {
         return gridPane.getColumnCount();
