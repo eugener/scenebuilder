@@ -1,0 +1,87 @@
+import org.apache.tools.ant.filters.EscapeUnicode
+
+apply plugin: 'base'
+
+ext.getStringProperty = { name, defaultValue ->
+    if (!project.hasProperty(name)) {
+        return defaultValue
+    }
+
+    def propertyValue = project.getProperty(name)
+    return propertyValue != null ? propertyValue.toString().trim() : defaultValue
+}
+
+subprojects {
+    apply plugin: 'java'
+
+    group = 'com.gluonhq.scenebuilder'
+    version = getStringProperty('VERSION', '8.4.0-SNAPSHOT')
+
+    ext.buildDateFormat = version.endsWith('-SNAPSHOT') ? 'yyyy-MM-dd HH:mm:ss' : 'yyyy-MM-dd'
+
+    repositories {
+        maven {
+            url "https://oss.sonatype.org/content/repositories/snapshots/"
+        }
+        maven {
+            url "https://oss.sonatype.org/content/repositories/releases/"
+        }
+        maven {
+            url "http://nexus.gluonhq.com/nexus/content/repositories/releases/"
+        }
+
+        jcenter()
+        mavenCentral()
+    }
+
+    dependencies {
+        // maven dependencies
+        compile 'org.eclipse.aether:aether-api:1.1.0'
+        compile 'org.eclipse.aether:aether-impl:1.1.0'
+        compile 'org.eclipse.aether:aether-connector-basic:1.1.0'
+        compile 'org.eclipse.aether:aether-transport-file:1.1.0'
+        compile 'org.eclipse.aether:aether-transport-http:1.1.0'
+        compile 'org.apache.maven:maven-aether-provider:3.3.9'
+
+        compile 'com.gluonhq:charm-glisten:4.4.0'
+
+        // REST API
+        compile 'org.apache.httpcomponents:httpclient:4.5.2'
+        compile 'javax.json:javax.json-api:1.0'
+        runtime 'org.glassfish:javax.json:1.0.4'
+        
+        testCompile 'junit:junit:4.12'
+        testCompile 'org.assertj:assertj-core:3.2.0'
+    }
+}
+
+clean {
+    delete "dist"
+}
+
+apply plugin: 'maven'
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            def repoUrl = getStringProperty('publishRepositoryUrl', 'http://nexus.gluonhq.com/nexus/content/repositories/releases/');
+            def repoUser = getStringProperty('publishRepositoryUser', '');
+            def repoPassword = getStringProperty('publishRepositoryPassword', '');
+            snapshotRepository(url: 'http://nexus.gluonhq.com/nexus/content/repositories/snapshots/') {
+                authentication userName: repoUser, password: repoPassword
+            }
+            repository(url: repoUrl) {
+                authentication(userName: repoUser, password: repoPassword);
+            }
+            addFilter('scenebuilder-all') { artifact, file ->
+                artifact.name == 'scenebuilder-all'
+            }
+            addFilter('scenebuilder') { artifact, file ->
+                artifact.name == 'scenebuilder'
+            }
+            pom('scenebuilder-all') {
+                artifactId = 'scenebuilder-all'
+            }
+        }
+    }
+}
